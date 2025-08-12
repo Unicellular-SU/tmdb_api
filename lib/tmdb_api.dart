@@ -114,7 +114,7 @@ part 'versions/v4/category/lists.dart';
 ///
 ///## For issues,feature request create a issue in [Git repo🔗](https://github.com/Arunnaidu3470/tmdb_api/issues)
 class TMDB {
-  final String _baseUrl = 'api.themoviedb.org';
+  String _baseUrl = 'api.themoviedb.org';
   final ApiKeys _apiKeys;
 
   late V3 _v3;
@@ -140,11 +140,13 @@ class TMDB {
   /// - [Read more about languages supported by TMDB here](https://developers.themoviedb.org/3/configuration/get-languages)
   TMDB(
     ApiKeys apiKeys, {
+    String? baseUrl,
     ConfigLogger logConfig = const ConfigLogger.showNone(),
     Dio? dio,
     Interceptors? interceptors,
     this.defaultLanguage = 'en-US',
   }) : _apiKeys = apiKeys {
+    _baseUrl = baseUrl ?? 'api.themoviedb.org';
     _dio = dio ?? Dio(BaseOptions(receiveDataWhenStatusError: true));
     _dio.interceptors.addAll(interceptors ?? []);
     _v3 = V3(this);
